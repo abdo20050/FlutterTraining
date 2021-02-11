@@ -64,7 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        body: Column(
+        body: SingleChildScrollView(
+            child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
@@ -168,6 +169,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         )
       ],
-    ));
+    )));
   }
 }
