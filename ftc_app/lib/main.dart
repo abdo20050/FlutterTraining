@@ -14,17 +14,18 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/signup': (BuildContext context) => new SignupPage()
       },
-      home: new MyHomePage(),
+      home: new MyHomePageState(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => new _MyHomePageState();
-}
+// class MyHomePage extends StatefulWidget {
+//   @override
+//   _MyHomePageState createState() => new _MyHomePageState();
+// }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends StatelessWidget {
+  String x='';
   Future<String> _CreatForgotPassword(BuildContext context) {
     TextEditingController controller = TextEditingController();
 
@@ -63,6 +64,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    var _globalKey = GlobalKey<FormState>();
+
     return new Scaffold(
         body: SingleChildScrollView(
             child: Column(
@@ -90,22 +94,42 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
             child: Column(
               children: <Widget>[
-                TextField(
-                  decoration: InputDecoration(
-                      labelText: 'Email',
-                      labelStyle: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.grey),
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.deepPurple))),
+                Form(
+                  key: _globalKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        validator: (value) => value.isEmpty
+                            ? ""
+                            : null,
+                        decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle: TextStyle(
+                                fontWeight: FontWeight.bold, color: Colors.grey),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.deepPurple))),
+                      ),
+                      TextFormField(
+                        validator: (value) => value.isEmpty
+                            ? ""
+                            : null,
+                        decoration: InputDecoration(
+                            labelText: 'Password',
+                            labelStyle: TextStyle(
+                                fontWeight: FontWeight.bold, color: Colors.grey),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.deepPurple))),
+                        obscureText: true,
+                      ),
+                    ],
+                  ),
                 ),
-                TextField(
-                  decoration: InputDecoration(
-                      labelText: 'Password',
-                      labelStyle: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.grey),
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.deepPurple))),
-                  obscureText: true,
+                Text(
+                  x,
+                  style: TextStyle(
+                      color: Colors.deepPurple,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline),
                 ),
                 Container(
                   alignment: Alignment(1.0, 0.0),
@@ -125,25 +149,49 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 SizedBox(height: 40.0),
                 Container(
-                  height: 40.0,
-                  child: Material(
-                    borderRadius: BorderRadius.circular(20.0),
-                    shadowColor: Colors.purpleAccent,
-                    color: Colors.deepPurple,
-                    elevation: 7.0,
-                    child: GestureDetector(
-                      child: Center(
-                        child: Text(
-                          'SIGN IN',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
+                  width: size.width *0.8,
+                  child: FlatButton(
+                      height: size.height * 0.06,
+                      onPressed: () {
+                        // if(!_globalKey.currentState.validate())
+                        //   return;
+                        x='ibrahim';
+                      },
+                      // shadowColor: Colors.purpleAccent,
+                      color: Colors.deepPurple,
+                      splashColor: Colors.red,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0)),
+                      child: Text(
+                        'SIGN IN',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ),
-                    ),
-                  ),
-                ),
+                        textAlign: TextAlign.center,
+                      )),
+                )
+                // Container(
+                //   height: 40.0,
+                //   child: Material(
+                //     borderRadius: BorderRadius.circular(20.0),
+                //     shadowColor: Colors.purpleAccent,
+                //     color: Colors.deepPurple,
+                //     elevation: 7.0,
+                //     child: GestureDetector(
+                //       onTap: (){},
+                //       child: Center(
+                //         child: Text(
+                //           'SIGN IN',
+                //           style: TextStyle(
+                //             color: Colors.white,
+                //             fontWeight: FontWeight.bold,
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             )),
         SizedBox(height: 15.0),
